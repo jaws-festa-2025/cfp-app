@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   helper_method :schedule_mode?
   helper_method :program_tracks
 
+  before_action :basic_auth
   before_action :set_paper_trail_whodunnit
   before_action :current_event
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -213,5 +214,11 @@ class ApplicationController < ActionController::Base
       current_website,
       last_modified: current_website.purged_at || current_website.updated_at
     ) unless current_website.caching_off?
+  end
+
+  def basic_auth
+    authenticate_or_request_with_http_basic do |username, password|
+      username == ENV["BASIC_AUTH_USER"] && password == ENV["BASIC_AUTH_PASSWORD"]
+    end
   end
 end
