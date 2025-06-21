@@ -14,5 +14,9 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  url:  <%= ENV["DATABASE_URL"] %>
+  # url:  <%= ENV["DATABASE_URL"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] || "localhost" %>
+  database: cfp_app
   pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
