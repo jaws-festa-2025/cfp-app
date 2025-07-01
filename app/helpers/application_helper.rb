@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def title
     if @title.blank?
-      "Kaigi on Rails CFPApp"
+      "JAWS FESTA 2025 CFPApp"
     else
       @title
     end
