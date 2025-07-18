@@ -1,0 +1,140 @@
+{
+  "containerDefinitions": [
+    {
+      "cpu": 0,
+      "dockerLabels": {},
+      "environment": [
+        {
+          "name": "DATABASE_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "DATABASE_HOST",
+          "value": "{{ cfn_output `CfpAppInfraStack` `CfpAppOutputDbClusterEndpoint` }}"
+        },
+        {
+          "name": "DATABASE_NAME",
+          "value": "cfp_app"
+        },
+        {
+          "name": "RAILS_ENV",
+          "value": "production"
+        },
+        {
+          "name": "RAILS_LOG_TO_STDOUT",
+          "value": "true"
+        },
+        {
+          "name": "TIMEZONE",
+          "value": "Asia/Tokyo"
+        },
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "value": "sample"
+        },
+        {
+          "name": "AWS_S3_BUCKET",
+          "value": "sample"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "value": "sample"
+        },
+        {
+          "name": "RAILS_SERVE_STATIC_FILES",
+          "value": "true"
+        },
+        {
+          "name": "MAIL_HOST",
+          "value": "{{ cfn_output `CfpAppInfraStack` `CfpAppServiceDomain` }}"
+        },
+        {
+          "name": "SMTP_ADDRESS",
+          "value": ""
+        },
+        {
+          "name": "SMTP_DOMAIN",
+          "value": ""
+        },
+        {
+          "name": "MAIL_FROM",
+          "value": "no-reply@example.com"
+        },
+        {
+          "name": "REDIS_URL",
+          "value": "{{ cfn_output `CfpAppInfraStack` `CfpAppOutputCacheEndpoint` }}"
+        }
+      ],
+      "essential": true,
+      "image": "122610521642.dkr.ecr.ap-northeast-1.amazonaws.com/cfp-app:{{ must_env `IMAGE_TAG` }}",
+      "command": [
+        "bundle",
+        "exec",
+        "sidekiq",
+        "--queue",
+        "default",
+        "--timeout",
+        "25"
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/ecs/CfpApp",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "CfpAppWorker"
+        }
+      },
+      "name": "CfpAppContainer",
+      "portMappings": [
+        {
+          "appProtocol": "",
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "DATABASE_USERNAME",
+          "valueFrom": "{{ secretsmanager_arn `CfpAppDbSecret` }}:username::"
+        },
+        {
+          "name": "DATABASE_PASSWORD",
+          "valueFrom": "{{ secretsmanager_arn `CfpAppDbSecret` }}:password::"
+        },
+        {
+          "name": "SECRET_KEY_BASE",
+          "valueFrom": "{{ secretsmanager_arn `CfpAppSecretKeyBase` }}:secretKeyBase::"
+        },
+        {
+          "name": "BASIC_AUTH_USER",
+          "valueFrom": "{{ secretsmanager_arn `CfpAppBasicAuthSecret` }}:username::"
+        },
+        {
+          "name": "BASIC_AUTH_PASSWORD",
+          "valueFrom": "{{ secretsmanager_arn `CfpAppBasicAuthSecret` }}:password::"
+        },
+        {
+          "name": "SMTP_USERNAME",
+          "valueFrom": "{{ secretsmanager_arn `CfpAppSmtpAuth` }}:smtpUsername::"
+        },
+        {
+          "name": "SMTP_PASSWORD",
+          "valueFrom": "{{ secretsmanager_arn `CfpAppSmtpAuth` }}:smtpPassword::"
+        }
+      ],
+      "versionConsistency": ""
+    }
+  ],
+  "cpu": "256",
+  "executionRoleArn": "{{ cfn_output `CfpAppInfraStack` `CfpAppOutputExecutionRoleArn` }}",
+  "family": "CfpAppWorkerTaskDef",
+  "ipcMode": "",
+  "memory": "512",
+  "networkMode": "awsvpc",
+  "pidMode": "",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "taskRoleArn": "{{ cfn_output `CfpAppInfraStack` `CfpAppOutputTaskRoleArn` }}"
+}
