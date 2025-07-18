@@ -58,7 +58,6 @@ jobs:
       - uses: kayac/ecspresso@v2
         with:
           version: latest
-      - run: ecspresso run --config deploy/ecspresso.jsonnet --ext-str IMAGE_SHA=${{ github.sha }} --overrides-file deploy/runtask-db-migrate.jsonnet
-      - run: ecspresso deploy --config deploy/ecspresso.jsonnet --ext-str IMAGE_SHA=${{ github.sha }}
-      - run: jsonnet deploy/apprunner.jsonnet --ext-str IMAGE_SHA=${{ github.sha }} > deploy/apprunner.json
-      - run: aws apprunner update-service --cli-input-json file://deploy/apprunner.json
+      - run: IMAGE_TAG=${{ github.sha }} ecspresso run --config deploy/ecspresso.yml --overrides-file deploy/ecs-task-def-db-migrate.json
+      - run: IMAGE_TAG=${{ github.sha }} ecspresso deploy --config deploy/ecspresso.yml
+      - run: IMAGE_TAG=${{ github.sha }} ecspresso deploy --config deploy/ecspresso-worker.yml
