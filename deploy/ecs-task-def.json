@@ -87,31 +87,23 @@
       "secrets": [
         {
           "name": "DATABASE_USERNAME",
-          "valueFrom": "{{ secretsmanager_arn `CfpAppDbSecret` }}:username::"
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/DbSecret` }}:username::"
         },
         {
           "name": "DATABASE_PASSWORD",
-          "valueFrom": "{{ secretsmanager_arn `CfpAppDbSecret` }}:password::"
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/DbSecret` }}:password::"
         },
         {
           "name": "SECRET_KEY_BASE",
-          "valueFrom": "{{ secretsmanager_arn `CfpAppSecretKeyBase` }}:secretKeyBase::"
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/SecretKeyBase` }}:secretKeyBase::"
         },
         {
           "name": "BASIC_AUTH_USER",
-          "valueFrom": "{{ secretsmanager_arn `CfpAppBasicAuthSecret` }}:username::"
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/BasicAuth` }}:username::"
         },
         {
           "name": "BASIC_AUTH_PASSWORD",
-          "valueFrom": "{{ secretsmanager_arn `CfpAppBasicAuthSecret` }}:password::"
-        },
-        {
-          "name": "SMTP_USERNAME",
-          "valueFrom": "{{ secretsmanager_arn `CfpAppSmtpAuth` }}:smtpUsername::"
-        },
-        {
-          "name": "SMTP_PASSWORD",
-          "valueFrom": "{{ secretsmanager_arn `CfpAppSmtpAuth` }}:smtpPassword::"
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/BasicAuth` }}:password::"
         }
       ],
       "versionConsistency": ""
