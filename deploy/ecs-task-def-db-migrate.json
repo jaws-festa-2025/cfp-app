@@ -1,0 +1,13 @@
+{
+  "containerOverrides": [
+    {
+      "name": "CfpAppContainer",
+      "command": [
+        "bundle",
+        "exec",
+        "rails",
+        "db:migrate"
+      ]
+    }
+  ]
+}

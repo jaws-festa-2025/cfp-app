@@ -1,0 +1,8 @@
+region: ap-northeast-1
+cluster: CfpAppCluster
+service: CfpAppWorkerService
+service_definition: ecs-service-def-worker.json
+task_definition: ecs-task-def-worker.json
+timeout: "10m0s"
+plugins:
+  - name: cloudformation

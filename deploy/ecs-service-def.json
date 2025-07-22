@@ -1,0 +1,47 @@
+{
+  "availabilityZoneRebalancing": "DISABLED",
+  "deploymentConfiguration": {
+    "alarms": {
+      "enable": false,
+      "rollback": false,
+      "alarmNames": []
+    },
+    "deploymentCircuitBreaker": {
+      "enable": false,
+      "rollback": false
+    },
+    "maximumPercent": 200,
+    "minimumHealthyPercent": 50
+  },
+  "deploymentController": {
+    "type": "ECS"
+  },
+  "desiredCount": 1,
+  "enableECSManagedTags": false,
+  "enableExecuteCommand": true,
+  "healthCheckGracePeriodSeconds": 300,
+  "launchType": "FARGATE",
+  "loadBalancers": [
+    {
+      "containerName": "CfpAppContainer",
+      "containerPort": 3000,
+      "targetGroupArn": "{{ cfn_output `CfpAppInfraStack` `CfpAppOutputTargetGroupArn` }}"
+    }
+  ],
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "assignPublicIp": "DISABLED",
+      "securityGroups": [
+        "{{ cfn_output `CfpAppInfraStack` `CfpAppOutputServiceSecurityGroup` }}"
+      ],
+      "subnets": [
+        "{{ cfn_output `CfpAppInfraStack` `CfpAppOutputPrivateSubnet1` }}",
+        "{{ cfn_output `CfpAppInfraStack` `CfpAppOutputPrivateSubnet2` }}"
+      ]
+    }
+  },
+  "platformFamily": "Linux",
+  "platformVersion": "LATEST",
+  "propagateTags": "NONE",
+  "schedulingStrategy": "REPLICA"
+}

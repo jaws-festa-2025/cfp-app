@@ -2,11 +2,11 @@ on:
   push:
     branches:
       # - kaigionrails
-      - "kaigionrails2024"
+      - "jaws-ug"
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: "${{ github.repository == 'kaigionrails/cfp-app' }}"
+    if: "${{ github.repository == 'jaws-festa-2025/cfp-app' }}"
     permissions:
       id-token: write
       contents: read
@@ -15,9 +15,9 @@ jobs:
       - uses: docker/setup-buildx-action@v3
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-region: us-west-2
+          aws-region: ap-northeast-1
           role-skip-session-tagging: false
-          role-to-assume: "arn:aws:iam::861452569180:role/GhaDockerPushToEcr"
+          role-to-assume: ${{ secrets.IAM_ROLE_PUSH_ECR }}
       - id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
       - id: meta
@@ -46,19 +46,18 @@ jobs:
       id-token: write
       contents: read
     env:
-      AWS_REGION: us-west-2
+      AWS_REGION: ap-northeast-1
     steps:
       - run: sudo apt-get update && sudo apt-get install jsonnet
       - uses: actions/checkout@v4
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-region: us-west-2
+          aws-region: ap-northeast-1
           role-skip-session-tagging: false
-          role-to-assume: "arn:aws:iam::861452569180:role/CfpAppDeployer"
+          role-to-assume: ${{ secrets.IAM_ROLE_DEPLOY_ECS }}
       - uses: kayac/ecspresso@v2
         with:
           version: latest
-      - run: ecspresso run --config deploy/ecspresso.jsonnet --ext-str IMAGE_SHA=${{ github.sha }} --overrides-file deploy/runtask-db-migrate.jsonnet
-      - run: ecspresso deploy --config deploy/ecspresso.jsonnet --ext-str IMAGE_SHA=${{ github.sha }}
-      - run: jsonnet deploy/apprunner.jsonnet --ext-str IMAGE_SHA=${{ github.sha }} > deploy/apprunner.json
-      - run: aws apprunner update-service --cli-input-json file://deploy/apprunner.json
+      - run: IMAGE_TAG=${{ github.sha }} ecspresso run --config deploy/ecspresso.yml --overrides-file deploy/ecs-task-def-db-migrate.json
+      - run: IMAGE_TAG=${{ github.sha }} ecspresso deploy --config deploy/ecspresso.yml
+      - run: IMAGE_TAG=${{ github.sha }} ecspresso deploy --config deploy/ecspresso-worker.yml
