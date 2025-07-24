@@ -112,7 +112,7 @@
         {
           "name": "SMTP_PASSWORD",
           "valueFrom": "{{ secretsmanager_arn `CfpApp/SmtpAuth` }}:password::"
-        },
+        }
       ],
       "versionConsistency": ""
     }
