@@ -50,15 +50,15 @@
         },
         {
           "name": "SMTP_ADDRESS",
-          "value": ""
+          "value": "www5228.sakura.ne.jp"
         },
         {
           "name": "SMTP_DOMAIN",
-          "value": ""
+          "value": "www5228.sakura.ne.jp"
         },
         {
           "name": "MAIL_FROM",
-          "value": "no-reply@example.com"
+          "value": "jawsfesta2025@event.jaws-ug.jp"
         },
         {
           "name": "REDIS_URL",
@@ -104,7 +104,15 @@
         {
           "name": "BASIC_AUTH_PASSWORD",
           "valueFrom": "{{ secretsmanager_arn `CfpApp/BasicAuth` }}:password::"
-        }
+        },
+        {
+          "name": "SMTP_USERNAME",
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/SmtpAuth` }}:username::"
+        },
+        {
+          "name": "SMTP_PASSWORD",
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/SmtpAuth` }}:password::"
+        },
       ],
       "versionConsistency": ""
     }
