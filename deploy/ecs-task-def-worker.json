@@ -128,7 +128,7 @@
         },
         {
           "name": "GITHUB_SECRET",
-          "valueFrom": "{{ secretsmanager_arn `CfpApp/GithubOAuth` }}:clientSecret::"
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/GitHubOAuth` }}:clientSecret::"
         }
       ],
       "versionConsistency": ""
