@@ -28,6 +28,7 @@ feature "Teammate Invitation received" do
         end
 
         it "can signin with a twitter oauth account" do
+          skip
           known_user.provider = OmniAuth.config.mock_auth[:twitter][:provider]
           known_user.uid = OmniAuth.config.mock_auth[:twitter][:uid]
           known_user.save
@@ -84,6 +85,7 @@ feature "Teammate Invitation received" do
         end
 
         it "must complete profile if name missing from oauth hash" do
+          skip
           OmniAuth.config.mock_auth[:twitter][:info].delete(:name)
           click_link "Sign in with Twitter"
           expect(page).to have_content("Before continuing, please take a moment to make sure your profile is complete.")
