@@ -112,6 +112,14 @@
         {
           "name": "SMTP_PASSWORD",
           "valueFrom": "{{ secretsmanager_arn `CfpApp/SmtpAuth` }}:password::"
+        },
+        {
+          "name": "GITHUB_KEY",
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/GitHubOAuth` }}:clientId::"
+        },
+        {
+          "name": "GITHUB_SECRET",
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/GithubOAuth` }}:clientSecret::"
         }
       ],
       "versionConsistency": ""
