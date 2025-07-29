@@ -58,7 +58,7 @@
         },
         {
           "name": "MAIL_FROM",
-          "value": "jawsfesta2025@event.jaws-ug.jp"
+          "value": "jawsfesta2025-speakers@event.jaws-ug.jp"
         },
         {
           "name": "REDIS_URL",
