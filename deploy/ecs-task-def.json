@@ -120,6 +120,10 @@
         {
           "name": "GITHUB_SECRET",
           "valueFrom": "{{ secretsmanager_arn `CfpApp/GitHubOAuth` }}:clientSecret::"
+        },
+        {
+          "name": "SLACK_WEBHOOK_URL",
+          "valueFrom": "{{ secretsmanager_arn `CfpApp/SlackWebhook` }}:webhookUrl::"
         }
       ],
       "versionConsistency": ""
