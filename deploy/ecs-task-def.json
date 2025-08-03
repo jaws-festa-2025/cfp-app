@@ -98,14 +98,6 @@
           "valueFrom": "{{ secretsmanager_arn `CfpApp/SecretKeyBase` }}:secretKeyBase::"
         },
         {
-          "name": "BASIC_AUTH_USER",
-          "valueFrom": "{{ secretsmanager_arn `CfpApp/BasicAuth` }}:username::"
-        },
-        {
-          "name": "BASIC_AUTH_PASSWORD",
-          "valueFrom": "{{ secretsmanager_arn `CfpApp/BasicAuth` }}:password::"
-        },
-        {
           "name": "SMTP_USERNAME",
           "valueFrom": "{{ secretsmanager_arn `CfpApp/SmtpAuth` }}:username::"
         },
