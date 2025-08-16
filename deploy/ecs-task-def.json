@@ -121,11 +121,11 @@
       "versionConsistency": ""
     }
   ],
-  "cpu": "256",
+  "cpu": "1024",
   "executionRoleArn": "{{ cfn_output `CfpAppInfraStack` `CfpAppOutputExecutionRoleArn` }}",
   "family": "CfpAppTaskDef",
   "ipcMode": "",
-  "memory": "1024",
+  "memory": "2048",
   "networkMode": "awsvpc",
   "pidMode": "",
   "requiresCompatibilities": [

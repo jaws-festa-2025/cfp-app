@@ -16,7 +16,7 @@
   "deploymentController": {
     "type": "ECS"
   },
-  "desiredCount": 1,
+  "desiredCount": 2,
   "enableECSManagedTags": false,
   "enableExecuteCommand": true,
   "healthCheckGracePeriodSeconds": 300,
