@@ -29,7 +29,7 @@ describe Staff::ProposalMailer do
     it "uses the default template if event's accept is blank" do
       event.update_attribute(:accept, "")
       mail.deliver_now
-      expect(ActionMailer::Base.deliveries.last.subject).to eq("[#{event}] [要返事] プロポーザルを採択いたしました")
+      expect(ActionMailer::Base.deliveries.last.subject).to eq("[#{event}][要返事] プロポーザルを採択いたしました")
     end
 
     it "gives the speaker the ability to submit feedback and ask any questions they may have" do
@@ -90,7 +90,7 @@ describe Staff::ProposalMailer do
     it "selects the appropriate template to use based on proposal state" do
       proposal.state = Proposal::ACCEPTED
       Staff::ProposalMailer.send_email(proposal).deliver_now
-      expect(ActionMailer::Base.deliveries.last.subject).to eq("[#{even}][要返事] プロポーザルを採択いたしました")
+      expect(ActionMailer::Base.deliveries.last.subject).to eq("[#{event}][要返事] プロポーザルを採択いたしました")
 
       proposal.state = Proposal::REJECTED
       Staff::ProposalMailer.send_email(proposal).deliver_now
@@ -106,7 +106,7 @@ describe Staff::ProposalMailer do
     it "sends a test email to the given address using the specified template" do
       Staff::ProposalMailer.send_test_email('test@e.mail', 'accept', event).deliver_now
       mail = ActionMailer::Base.deliveries.last
-      expect(mail.subject).to eq("[#{even}][要返事] プロポーザルを採択いたしました")
+      expect(mail.subject).to eq("[#{event}][要返事] プロポーザルを採択いたしました")
       expect(mail.to[0]).to eq('test@e.mail')
       expect(mail.bcc).to be_empty
 
