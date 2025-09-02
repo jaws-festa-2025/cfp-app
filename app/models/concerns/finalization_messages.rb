@@ -2,9 +2,9 @@
 
 module FinalizationMessages
   MESSAGES = {
-    Proposal::State::ACCEPTED   => ->(event_name) { "Your proposal for #{event_name} has been accepted" },
-    Proposal::State::REJECTED   => ->(event_name) { "Your proposal for #{event_name} has not been accepted" },
-    Proposal::State::WAITLISTED => ->(event_name) { "Your proposal for #{event_name} has been added to the waitlist" }
+    Proposal::State::ACCEPTED   => ->(event_name) { "[#{event_name}][要返事] プロポーザルを採択いたしました" },
+    Proposal::State::REJECTED   => ->(event_name) { "[#{event_name}] プロポーザルは不採択となりました" },
+    Proposal::State::WAITLISTED => ->(event_name) { "[#{event_name}][要返事] プロポーザルを補選として採択いたしました" }
   }.freeze
 
   def subject_for(proposal:, type: proposal.state)
