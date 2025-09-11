@@ -118,8 +118,8 @@ class ScheduleSlot extends Component {
     let background = this.state.hoverDrag ? '#f9f6f1' : '#fff';
 
     const style = {
-      top: (slotStartTime - startTime) * 90 + 'px',
-      height: (slotEndTime - slotStartTime) * 90 + 'px',
+      top: (slotStartTime - startTime) * 180 + 'px',
+      height: (slotEndTime - slotStartTime) * 180 + 'px',
       background,
     };
 
