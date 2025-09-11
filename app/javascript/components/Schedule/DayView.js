@@ -24,7 +24,7 @@ class DayView extends Component {
     } = this.props;
 
     let rows = rooms.map((room) => {
-      const height = (endTime - startTime + 1) * 90 + 25 + 'px';
+      const height = (endTime - startTime + 1) * 180 + 25 + 'px';
       return (
         <ScheduleColumn
           key={'day' + dayViewing + 'room' + room.id}
