@@ -34,6 +34,10 @@ class Speaker < ApplicationRecord
   def github_account
     user&.github_account
   end
+
+  def twitter_account
+    user&.twitter_account
+  end
 end
 
 # == Schema Information
