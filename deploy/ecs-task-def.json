@@ -29,15 +29,7 @@
           "value": "Asia/Tokyo"
         },
         {
-          "name": "AWS_ACCESS_KEY_ID",
-          "value": "sample"
-        },
-        {
           "name": "AWS_S3_BUCKET",
-          "value": "sample"
-        },
-        {
-          "name": "AWS_SECRET_ACCESS_KEY",
           "value": "sample"
         },
         {
